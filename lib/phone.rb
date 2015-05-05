@@ -1,34 +1,27 @@
 class Phone
-  attr_reader(:area_code, :number, :type, :id)
-
-  @@phones = []
+  attr_reader(:area_code, :number, :type, :contact_id)
 
   define_method(:initialize) do |attributes|
     @area_code = attributes.fetch(:area_code)
     @number = attributes.fetch(:number)
     @type = attributes.fetch(:type)
-    @id = @@phones.length().+(1)
+    @contact_id = attributes.fetch(:contact_id)
   end
 
   define_method(:save) do
-    @@phones.push(self)
+    DB.exec("INSERT INTO phone_numbers (area_code, number, type, contact_id) VALUES (#{@area_code}, #{@number}, '#{@type}', #{@contact_id})")
   end
 
   define_singleton_method(:all) do
-    @@phones
-  end
-
-  define_singleton_method(:clear) do
-    @@phones = []
-  end
-
-  define_singleton_method(:find) do |id|
-    found_phone = nil
-    @@phones.each() do |phone|
-      if phone.id().eql?(id)
-        found_phone = phone
-      end
+    returned_phone = DB.exec("SELECT * FROM phone_numbers;")
+    phone_numbers = []
+    returned_phone.each() do |phone_number|
+      area_code = phone_number.fetch('area_code').to_i()
+      number = phone_number.fetch('number').to_i()
+      type = phone_number.fetch('type')
+      contact_id = phone_number.fetch('contact_id')
+      phone_numbers.push(Phone.new({:area_code => area_code, :number => number, :type => type, :contact_id = contact_id}))
     end
-    found_phone
+    phone_numbers
   end
 end

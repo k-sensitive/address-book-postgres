@@ -1,11 +1,7 @@
-require('rspec')
-require('address')
-require('pry')
+require('spec_helper')
+
 
 describe(Address) do
-  before() do
-    Address.clear()
-  end
 
   describe('#street') do
     it('returns a street address') do

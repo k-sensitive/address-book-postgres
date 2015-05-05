@@ -1,10 +1,7 @@
-require('rspec')
-require('email')
+require('spec_helper')
+
 
 describe(Email) do
-  before() do
-    Email.clear()
-  end
 
   describe('#user_name') do
     it('returns the user name of the email address') do

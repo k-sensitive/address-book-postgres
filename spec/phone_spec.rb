@@ -1,10 +1,7 @@
-require('rspec')
-require('phone')
+require('spec_helper')
+
 
 describe(Phone) do
-  before() do
-    Phone.clear()
-  end
 
   describe('#area_code') do
     it('returns an area code') do

@@ -1,10 +1,7 @@
-require('rspec')
-require('contact')
+require('spec_helper')
+
 
 describe(Contact) do
-  before() do
-    Contact.clear()
-  end
 
   describe('#first_name') do
     it('returns a first name') do
